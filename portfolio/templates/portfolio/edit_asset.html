@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Редактировать актив</title>
+</head>
+<body>
+    <h2>✏️ Редактировать {{ asset.coin_symbol }}</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>
+            <label>Символ монеты:</label><br>
+            {{ form.coin_symbol }}
+        </p>
+        <p>
+            <label>Название монеты:</label><br>
+            {{ form.coin_name }}
+        </p>
+        <p>
+            <label>Количество:</label><br>
+            {{ form.amount }}
+        </p>
+        <p>
+            <label>Цена покупки ($):</label><br>
+            {{ form.purchase_price }}
+        </p>
+        <p>
+            <label>Биржа:</label><br>
+            {{ form.exchange }}
+        </p>
+        <p>
+            <label>Заметки:</label><br>
+            {{ form.notes }}
+        </p>
+        <p>
+            <label>Изображение:</label><br>
+            {{ form.image }}
+        </p>
+        <button type="submit" style="background: #4CAF50; color: white; padding: 10px; border: none;">
+            💾 Сохранить изменения
+        </button>
+    </form>
+    <br>
+    <form action="{% url 'delete_asset' asset.id %}" method="post"
+          onsubmit="return confirm('Удалить этот актив?');">
+        {% csrf_token %}
+        <button type="submit" style="background: #f44336; color: white; padding: 10px; border: none;">
+            🗑️ Удалить актив
+        </button>
+    </form>
+    <br>
+    <a href="/">← Назад к списку активов</a>
+</body>
+</html>

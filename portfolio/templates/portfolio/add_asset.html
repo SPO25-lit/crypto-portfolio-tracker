@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Добавить актив</title>
+</head>
+<body>
+    <h2>➕ Добавить новый актив</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>
+            <label>Символ монеты (BTC, ETH):</label><br>
+            {{ form.coin_symbol }}
+        </p>
+        <p>
+            <label>Название монеты:</label><br>
+            {{ form.coin_name }}
+        </p>
+        <p>
+            <label>Количество:</label><br>
+            {{ form.amount }}
+        </p>
+        <p>
+            <label>Цена покупки ($):</label><br>
+            {{ form.purchase_price }}
+        </p>
+        <p>
+            <label>Биржа:</label><br>
+            {{ form.exchange }}
+        </p>
+        <p>
+            <label>Заметки:</label><br>
+            {{ form.notes }}
+        </p>
+        <p>
+            <label>Изображение:</label><br>
+            {{ form.image }}
+        </p>
+        <button type="submit">💾 Сохранить</button>
+    </form>
+    <br>
+    <a href="/">← Назад к списку активов</a>
+</body>
+</html>

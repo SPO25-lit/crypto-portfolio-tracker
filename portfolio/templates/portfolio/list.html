@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Мой криптопортфель</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+        }
+        .add-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .add-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+        .edit-btn {
+            background: #4CAF50;
+            color: white;
+            padding: 6px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+        .edit-btn:hover {
+            background: #45a049;
+        }
+        .coin-image {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+            vertical-align: middle;
+            border: 2px solid #e0e0e0;
+        }
+        .empty-message {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 40px;
+        }
+        .coin-cell {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>📊 Мой криптопортфель</h1>
+    <a href="/add/" class="add-button">
+        ➕ Добавить криптоактив
+    </a>
+    <br><br>
+    <table>
+        <tr>
+            <th>Изображение</th>
+            <th>Монета</th>
+            <th>Количество</th>
+            <th>Цена покупки</th>
+            <th>Дата покупки</th>
+            <th>Биржа</th>
+            <th>Действия</th>
+        </tr>
+        {% for asset in assets %}
+        <tr>
+            <td>
+                {% if asset.image %}
+                    <img src="{{ asset.image.url }}" alt="{{ asset.coin_symbol }}" class="coin-image">
+                {% else %}
+                    <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" 
+                         width="32" height="32" class="coin-image">
+                {% endif %}
+            </td>
+            <td>
+                <strong>{{ asset.coin_symbol }}</strong><br>
+                <small>{{ asset.coin_name }}</small>
+            </td>
+            <td><strong>{{ asset.amount }}</strong></td>
+            <td><strong style="color: #4CAF50;">${{ asset.purchase_price }}</strong></td>
+            <td>{{ asset.purchase_date|date:"d.m.Y" }}</td>
+            <td>
+                {% if asset.exchange %}
+                    <span style="background: #e3f2fd; padding: 4px 8px; border-radius: 12px;">
+                        {{ asset.exchange.name }}
+                    </span>
+                {% else %}
+                    ---
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'edit_asset' asset.id %}" class="edit-btn">
+                    ✏️ Редактировать
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7" class="empty-message">
+                <div style="font-size: 24px; margin-bottom: 10px;">😢</div>
+                У вас ещё нет активов. Добавьте первый!
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

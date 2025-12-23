@@ -1,0 +1,23 @@
+# Django
+*.pyc
+__pycache__/
+db.sqlite3
+*.log
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Environment
+.env
+.env.local
+
+# Media files
+media/
+
+# Static files (собранные)
+staticfiles/
+
+# IDE
+.idea/
+.DS_Store
